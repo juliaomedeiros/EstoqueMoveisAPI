@@ -2,7 +2,19 @@ using EstoqueAPI.DataContext;
 using EstoqueAPI.Service.ProdutoService;
 using Microsoft.EntityFrameworkCore;
 
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: "MyPolicy",
+        policy =>
+        {
+            policy.WithOrigins("https://localhost:44386/api"
+                                ).AllowAnyOrigin();
+        });
+});
 
 // Add services to the container.
 
@@ -26,6 +38,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors();
 
 app.UseAuthorization();
 

@@ -1,10 +1,12 @@
 ﻿using EstoqueAPI.Models;
 using EstoqueAPI.Service.ProdutoService;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EstoqueAPI.Controllers
 {
+    [EnableCors("MyPolicy")]
     [Route("api/[controller]")]
     [ApiController]
     public class ProdutoController : ControllerBase
@@ -14,7 +16,7 @@ namespace EstoqueAPI.Controllers
         {
             _produtoInterface = produtoInterface;
         }
-
+        
         [HttpGet]
         public async Task<ActionResult<ServiceResponse<List<ProdutoModel>>>> GetProdutos()
         {
